@@ -113,7 +113,7 @@ if sidebar_selection == "Price Prediction":
     flight_class = st.selectbox("Class", ["economy", "business"])
     departure_location = st.selectbox("Departure Location", data['departure_city'].unique())
     destination_location = st.selectbox("Destination Location", data['arrival_city'].unique())
-    duration = st.slider("Duration (in minutes)", min_value=30, max_value=360, step=10, value=120)
+    #duration = st.slider("Duration (in minutes)", min_value=30, max_value=360, step=10, value=120)
 
     # Date input
     journey_date = st.date_input("Flight Date", value=datetime.date.today())
