@@ -74,18 +74,18 @@ if sidebar_selection == "Insights":
     # ax2.set_title("Price by Number of Stops")
     # st.pyplot(fig2)
 
-    # **2. Impact of Travel Dates**
-    st.subheader("2. Price Variance by Booking Date")
-    if 'Days_To_Departure' in data.columns:
-        fig3, ax3 = plt.subplots()
-        sns.lineplot(data=data, x='Days_To_Departure', y='price', ax=ax3)
-        ax3.set_title("Price Trend Based on Days to Departure")
-        st.pyplot(fig3)
-    else:
-        st.warning("Missing 'Days_To_Departure' column in data.")
+    # # **2. Impact of Travel Dates**
+    # st.subheader("2. Price Variance by Booking Date")
+    # if 'Days_To_Departure' in data.columns:
+    #     fig3, ax3 = plt.subplots()
+    #     sns.lineplot(data=data, x='Days_To_Departure', y='price', ax=ax3)
+    #     ax3.set_title("Price Trend Based on Days to Departure")
+    #     st.pyplot(fig3)
+    # else:
+    #     st.warning("Missing 'Days_To_Departure' column in data.")
 
     # **3. Class of Service**
-    st.subheader("3. Class of Service and Pricing")
+    st.subheader("2. Class of Service and Pricing")
     class_prices = data.groupby('class')['price'].mean()
     fig4, ax4 = plt.subplots()
     sns.barplot(x=class_prices.index, y=class_prices.values, ax=ax4)
@@ -104,7 +104,7 @@ if sidebar_selection == "Insights":
     #     st.warning("Missing 'Season' column in data.")
 
     # **4. Departure Time**
-    st.subheader("4. Pricing based on Departure Time")
+    st.subheader("3. Pricing based on Departure Time")
     if 'Departure_Time' in data.columns:
         dep_time_prices = data.groupby('Departure_Time')['price'].mean()
         fig6, ax6 = plt.subplots()
