@@ -127,6 +127,7 @@ if sidebar_selection == "Price Prediction":
     dep_min = 0
     arr_hour = 0
     arr_min = 0
+    duration = 0
 
     # One-hot encoding
     def encode_feature(value, categories):
