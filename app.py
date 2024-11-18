@@ -136,7 +136,7 @@ if sidebar_selection == "Price Prediction":
     duration, journey_day, journey_month, journey_year, 
     dep_hour, dep_min, arr_hour, arr_min  # Dummy time features
 ] + encode_feature(airline, data['airline'].unique()) +
-    encode_feature(flight_class, ["economy", "business"]) +
+    encode_feature(flight_class, ["business", "economy"]) +
     encode_feature(departure_location, data['departure_city'].unique()) +
     encode_feature(destination_location, data['arrival_city'].unique())).reshape(1, -1)
 
