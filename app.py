@@ -128,25 +128,24 @@ if sidebar_selection == "Price Prediction":
 
     # Date input
     journey_date = st.date_input("Flight Date", value=datetime.date.today())
-    departure_time = st.time_input("Departure Time")
-    arrival_time = st.time_input("Arrival Time")
+    #departure_time = st.time_input("Departure Time")
+    #arrival_time = st.time_input("Arrival Time")
 
     # Extracting date and time components
     journey_day = journey_date.day
     journey_month = journey_date.month
     journey_year = journey_date.year
-    dep_hour = departure_time.hour
-    dep_min = departure_time.minute
-    arr_hour = arrival_time.hour
-    arr_min = arrival_time.minute
+    #dep_hour = departure_time.hour
+    #dep_min = departure_time.minute
+    #arr_hour = arrival_time.hour
+    #arr_min = arrival_time.minute
 
     # One-hot encoding
     def encode_feature(value, categories):
         return [1 if value == category else 0 for category in categories]
 
     input_data = np.array([ 
-        duration, journey_day, journey_month, journey_year, 
-        dep_hour, dep_min, arr_hour, arr_min 
+        duration, journey_day, journey_month, journey_year
     ] + encode_feature(airline, data['airline'].unique()) +
         encode_feature(flight_class, ["economy", "business"]) +
         encode_feature(departure_location, data['departure_city'].unique()) +
