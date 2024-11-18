@@ -47,43 +47,6 @@ if sidebar_selection == "Insights":
     plt.xticks(rotation=45, ha="right")  # Rotate labels and align them to the right
     st.pyplot(fig1)
 
-
-    # # **2. Stops and Price**
-    # st.subheader("2. Impact of Stops on Price")
-
-    # # Calculate average prices for each stop category
-    # stops_prices = data.groupby('stops')['price'].mean()
-
-    # # Extract prices for non-stop (0 stops) and one-stop (1 stop) flights
-    # if 0 in stops_prices.index and 1 in stops_prices.index:
-    #     non_stop_price = stops_prices[0]
-    #     one_stop_price = stops_prices[1]
-        
-    #     # Calculate percentage difference between non-stop and one-stop flights
-    #     percentage_difference = ((non_stop_price - one_stop_price) / one_stop_price) * 100
-        
-    #     # Display the calculated percentage difference
-    #     st.write(f"On average, non-stop flights are {percentage_difference:.2f}% more expensive than one-stop flights.")
-        
-    # else:
-    #     st.warning("Data for non-stop or one-stop flights is missing.")
-
-    # # Plotting the price by number of stops
-    # fig2, ax2 = plt.subplots()
-    # sns.barplot(x=stops_prices.index, y=stops_prices.values, ax=ax2)
-    # ax2.set_title("Price by Number of Stops")
-    # st.pyplot(fig2)
-
-    # # **2. Impact of Travel Dates**
-    # st.subheader("2. Price Variance by Booking Date")
-    # if 'Days_To_Departure' in data.columns:
-    #     fig3, ax3 = plt.subplots()
-    #     sns.lineplot(data=data, x='Days_To_Departure', y='price', ax=ax3)
-    #     ax3.set_title("Price Trend Based on Days to Departure")
-    #     st.pyplot(fig3)
-    # else:
-    #     st.warning("Missing 'Days_To_Departure' column in data.")
-
     # **2. Class of Service**
     st.subheader("2. Class of Service and Pricing")
     class_prices = data.groupby('class')['price'].mean()
@@ -140,7 +103,7 @@ if sidebar_selection == "Price Prediction":
     encode_feature(departure_location, data['departure_city'].unique()) +
     encode_feature(destination_location, data['arrival_city'].unique())).reshape(1, -1)
 
-# Predict Price
-if st.button("Predict Price"):
-    predicted_price = model.predict(input_data)
-    st.success(f"Predicted Flight Price: ₹{np.exp(predicted_price[0]):,.2f}")
+    # Predict Price
+    if st.button("Predict Price"):
+        predicted_price = model.predict(input_data)
+        st.success(f"Predicted Flight Price: ₹{np.exp(predicted_price[0]):,.2f}")
