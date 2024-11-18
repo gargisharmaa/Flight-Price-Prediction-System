@@ -84,7 +84,7 @@ if sidebar_selection == "Insights":
     # else:
     #     st.warning("Missing 'Days_To_Departure' column in data.")
 
-    # **3. Class of Service**
+    # **2. Class of Service**
     st.subheader("2. Class of Service and Pricing")
     class_prices = data.groupby('class')['price'].mean()
     fig4, ax4 = plt.subplots()
@@ -92,18 +92,7 @@ if sidebar_selection == "Insights":
     ax4.set_title("Average Price by Class of Service")
     st.pyplot(fig4)
 
-    # # **5. Seasonal Trends**
-    # st.subheader("5. Seasonal Price Trends")
-    # if 'Season' in data.columns:
-    #     season_prices = data.groupby('Season')['price'].mean()
-    #     fig5, ax5 = plt.subplots()
-    #     sns.barplot(x=season_prices.index, y=season_prices.values, ax=ax5)
-    #     ax5.set_title("Average Price by Season")
-    #     st.pyplot(fig5)
-    # else:
-    #     st.warning("Missing 'Season' column in data.")
-
-    # **4. Departure Time**
+    # **3. Departure Time**
     st.subheader("3. Pricing based on Departure Time")
     if 'Departure_Time' in data.columns:
         dep_time_prices = data.groupby('Departure_Time')['price'].mean()
@@ -128,30 +117,30 @@ if sidebar_selection == "Price Prediction":
 
     # Date input
     journey_date = st.date_input("Flight Date", value=datetime.date.today())
-    #departure_time = st.time_input("Departure Time")
-    #arrival_time = st.time_input("Arrival Time")
 
     # Extracting date and time components
     journey_day = journey_date.day
     journey_month = journey_date.month
     journey_year = journey_date.year
-    #dep_hour = departure_time.hour
-    #dep_min = departure_time.minute
-    #arr_hour = arrival_time.hour
-    #arr_min = arrival_time.minute
+    # Add dummy values for removed features
+    dep_hour = 0
+    dep_min = 0
+    arr_hour = 0
+    arr_min = 0
 
     # One-hot encoding
     def encode_feature(value, categories):
         return [1 if value == category else 0 for category in categories]
 
     input_data = np.array([ 
-        duration, journey_day, journey_month, journey_year
-    ] + encode_feature(airline, data['airline'].unique()) +
-        encode_feature(flight_class, ["economy", "business"]) +
-        encode_feature(departure_location, data['departure_city'].unique()) +
-        encode_feature(destination_location, data['arrival_city'].unique())).reshape(1, -1)
+    duration, journey_day, journey_month, journey_year, 
+    dep_hour, dep_min, arr_hour, arr_min  # Dummy time features
+] + encode_feature(airline, data['airline'].unique()) +
+    encode_feature(flight_class, ["economy", "business"]) +
+    encode_feature(departure_location, data['departure_city'].unique()) +
+    encode_feature(destination_location, data['arrival_city'].unique())).reshape(1, -1)
 
-    # Predict Price
-    if st.button("Predict Price"):
-        predicted_price = model.predict(input_data)
-        st.success(f"Predicted Flight Price: ₹{np.exp(predicted_price[0]):,.2f}")
+# Predict Price
+if st.button("Predict Price"):
+    predicted_price = model.predict(input_data)
+    st.success(f"Predicted Flight Price: ₹{np.exp(predicted_price[0]):,.2f}")
